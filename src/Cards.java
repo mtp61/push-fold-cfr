@@ -10,7 +10,7 @@ public class Cards {
 	
 	public static int[] getShuffledDeck() {
 		int[] deck = new int[52];
-		
+	
 		// initialize deck
 		int counter = 0;
 		for (int rank : ranks) {

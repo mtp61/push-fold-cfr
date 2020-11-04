@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Main {
+public class Testing {
 	public static void main(String args[]) {
 		int[] deck = Cards.getShuffledDeck();
 		Hand hand = new Hand(deck[0], deck[1]);

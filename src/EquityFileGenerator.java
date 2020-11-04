@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,9 +8,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 public class EquityFileGenerator {
-	private static int niter = 100000;
+	private static int niter = 10000;
 	private static Random rand = new Random();
 
 	public static void main(String args[]) {		
@@ -83,6 +86,16 @@ public class EquityFileGenerator {
 			}
 		}
 		
+		// make sure every possible input is in the map
+		for (int i = 0; i < 169; ++i) {
+			for (int j = 0; j < 169; ++j) {
+				hand_int = 1000 * i + j;
+				if (!hashmap.containsKey(hand_int)) {
+					hashmap.put(hand_int, hashmap.get(1000 * j + i));
+				}
+			}
+		}
+		
 		// write to file
 		dumpEquityFile(hashmap);
 	}
@@ -132,7 +145,33 @@ public class EquityFileGenerator {
 	public static HashMap<Integer, ArrayList<Float>> loadEquityFile() {
 		HashMap<Integer, ArrayList<Float>> hashmap = new HashMap<Integer, ArrayList<Float>>();
 		
-		// TODO
+		Scanner scanner;
+		String line;
+		int key;
+		ArrayList<Float> value;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("equities.txt"));
+			
+			line = reader.readLine();
+			while (line != null) {
+				scanner = new Scanner(line);
+				
+				key = scanner.nextInt();
+				
+				value = new ArrayList<Float>();
+				value.add(scanner.nextFloat());
+				value.add(scanner.nextFloat());
+				value.add(scanner.nextFloat());
+				
+				hashmap.put(key, value);
+				
+				line = reader.readLine();
+			}
+			
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("FileReader error");
+		}
 		
 		return hashmap;
 	}
