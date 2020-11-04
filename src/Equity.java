@@ -4,6 +4,7 @@ public class Equity {
 	// 0 for tie 1 for hand1 win 2 for hand2 win
 	public static int simulateHand(Hand hand1, Hand hand2) {
 		assert(!Hand.overlap(hand1, hand2)); // TODO I don't think this is working...
+		
 		int[] hand_cards = { hand1.card1, hand1.card2, hand2.card1, hand2.card2 };
 
 		// get community cards
